@@ -6,9 +6,10 @@ class UrlController {
     async shortenUrl(req, res, next) {
         try {
             const { originalUrl } = req.body;
-            console.log(req);
+            console.log(req.body);
+            console.log("EXTRACTED URL:", originalUrl);
 
-            if (!originalUrl || validUrl.isUri(originalUrl)) {
+            if (!originalUrl || !validUrl.isUri(originalUrl)) {
                 return res.status(400).json({ success: false, error: "Invalid URL format. Please enter a valid URL starting with http:// or https://" });
             }
 
