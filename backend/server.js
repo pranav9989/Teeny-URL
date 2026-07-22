@@ -1,13 +1,12 @@
-const express = require("express");
-const cors = require("cors");
-const mongoose = require("mongoose");
-const nanoid = require("nanoid");
-const validUrl = require("valid-url");
+const dns = require('node:dns');
+dns.setServers(['8.8.8.8', '1.1.1.1']);
+require('dotenv').config(); // MUST be the very first line
 
-const app = express();
+const express = require('express');
+const mongoose = require('mongoose');
 
-app.use(cors());
-app.use(express.json());
+console.log("Checking URI:", process.env.MONGO_URI); // Debug check
 
-
-mongoose.connect("")
+mongoose.connect(process.env.MONGO_URI)
+    .then(() => console.log('MongoDB connected successfully!'))
+    .catch((err) => console.error('DB Error:', err));
