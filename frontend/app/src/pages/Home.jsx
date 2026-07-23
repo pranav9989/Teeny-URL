@@ -1,6 +1,6 @@
-import react, { useState } from "react";
+import React, { useState } from "react";
 import api from "../api/api";
-
+import "./Home.css";
 
 function Home() {
     const [url, setUrl] = useState("");
@@ -17,7 +17,7 @@ function Home() {
         setCopied(false);
 
         try {
-            const response = await api.post("/api/shorten", { originalUrl: url.trim() }); //this name should match the backend controller
+            const response = await api.post("/api/shorten", { originalUrl: url.trim() });
 
             if (response.data.success) {
                 setShortUrl(response.data.shortUrl);
@@ -30,8 +30,6 @@ function Home() {
         finally {
             setLoading(false);
         }
-
-
     }
 
     const handleCopy = () => {
@@ -41,26 +39,44 @@ function Home() {
     };
 
     return (
-        <>
-            <h1>SHORTEN YOUR LINK</h1>
-            <form action="/post" onSubmit={handleSubmit}>
-                <label htmlFor="">Enter URL : </label>
-                <input type="text" value={url} onChange={(e) => setUrl(e.target.value)} placeholder="Paste a long URL..." required />
-                <button type="submit" disabled={loading}>{loading ? "SHORTENING..." : "SUBMIT"}</button>
-            </form>
+        <div className="home-container">
+            <div className="home-card">
+                <h1 className="home-title">SHORTEN YOUR LINK</h1>
 
-            {error ? <p>{error}</p> : null}
+                <form onSubmit={handleSubmit} className="shorten-form">
+                    <div className="input-group">
+                        <label className="input-label">Enter URL :</label>
+                        <input
+                            type="text"
+                            className="url-input"
+                            value={url}
+                            onChange={(e) => setUrl(e.target.value)}
+                            placeholder="Paste a long URL..."
+                            required
+                        />
+                    </div>
 
-            {
-                shortUrl ?
-                    <div>
-                        <span>Your Short Url : {shortUrl}</span>
-                        <button onClick={handleCopy}>{copied ? "COPIED!" : "COPY"}</button>
-                    </div> :
-                    null
-            }
+                    <button type="submit" className="submit-btn" disabled={loading}>
+                        {loading ? "SHORTENING..." : "SUBMIT"}
+                    </button>
+                </form>
 
-        </>
+                {error ? <p className="error-message">{error}</p> : null}
+
+                {shortUrl ? (
+                    <div className="result-container">
+                        <span className="result-label">Your Short Url</span>
+                        <span className="short-url-link">{shortUrl}</span>
+                        <button
+                            className={`copy-btn ${copied ? "copied" : ""}`}
+                            onClick={handleCopy}
+                        >
+                            {copied ? "COPIED!" : "COPY"}
+                        </button>
+                    </div>
+                ) : null}
+            </div>
+        </div>
     );
 }
 

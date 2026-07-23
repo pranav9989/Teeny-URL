@@ -1,0 +1,28 @@
+/* Box sizing reset & default font selection */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Base Body Styling */
+body {
+    background-color: #0f172a;
+    /* Deep Slate Background */
+    color: #f8fafc;
+    /* Crisp Off-White Text */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    min-height: 100vh;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Ensure root element stretches smoothly */
+#root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
