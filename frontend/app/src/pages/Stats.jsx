@@ -77,18 +77,18 @@ function Stats() {
                     <div className="stats-result">
                         <div className="stat-item">
                             <span className="stat-label">Original URL:</span>
-                            <a href={stats.originalUrl} target="_blank" rel="noreferrer" className="stat-link">
-                                {stats.originalUrl}
+                            <a href={stats.stats.originalUrl} target="_blank" rel="noreferrer" className="stat-link">
+                                {stats.stats.originalUrl}
                             </a>
                         </div>
                         <div className="stat-grid">
                             <div className="stat-box">
-                                <span className="stat-number">{stats.clicks}</span>
+                                <span className="stat-number">{stats.stats.clicks}</span>
                                 <span className="stat-box-label">Total Clicks</span>
                             </div>
                             <div className="stat-box">
                                 <span className="stat-number">
-                                    {new Date(stats.createdAt).toLocaleDateString()}
+                                    {new Date(stats.stats.createdAt).toLocaleDateString()}
                                 </span>
                                 <span className="stat-box-label">Created Date</span>
                             </div>
