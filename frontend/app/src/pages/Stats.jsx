@@ -27,8 +27,21 @@ function Stats() {
             }
         }
         catch (err) {
-            const message = err.response?.data?.error || err.message || "Failed to load stats";
-            setError(message);
+            // Get the error data
+            const serverError = err.response?.data?.error;
+
+            // Check if the server returned an error OBJECT instead of a string
+            let finalMessage;
+            if (serverError && typeof serverError === 'object' && serverError.message) {
+                finalMessage = serverError.message; // Extract the string message
+            } else if (typeof serverError === 'string') {
+                finalMessage = serverError; // Use the string directly
+            } else {
+                finalMessage = err.message || "Something went wrong"; // Fallback to Axios message
+            }
+
+            // Now finalMessage is guaranteed to be a string!
+            setError(finalMessage);
         }
         finally {
             setLoading(false);
