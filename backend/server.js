@@ -21,8 +21,21 @@ mongoose.connect(dbUri)
     .catch((err) => console.error('MongoDB Connection Error:', err));
 
 // 5. Global Middlewares
-app.use(cors({ origin: 'https://teeny-url-one.vercel.app' }));        // Enables Cross-Origin requests (so React can talk to Node)
-app.use(express.json()); // Parses incoming JSON payloads in req.body
+app.use(cors({
+    origin: (origin, callback) => {
+        if (
+            !origin ||
+            origin === "http://localhost:5173" ||
+            origin.endsWith(".vercel.app")
+        ) {
+            callback(null, true);
+        } else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    }
+}));
+
+app.use(express.json());
 
 // 6. Mount Application Routes
 app.use('/', urlRoutes);
