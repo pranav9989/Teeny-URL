@@ -21,7 +21,7 @@ mongoose.connect(dbUri)
     .catch((err) => console.error('MongoDB Connection Error:', err));
 
 // 5. Global Middlewares
-app.use(cors());        // Enables Cross-Origin requests (so React can talk to Node)
+app.use(cors({ origin: 'https://teeny-url-one.vercel.app' }));        // Enables Cross-Origin requests (so React can talk to Node)
 app.use(express.json()); // Parses incoming JSON payloads in req.body
 
 // 6. Mount Application Routes

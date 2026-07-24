@@ -50,7 +50,7 @@ class UrlController {
             if (!stats) {
                 return res.status(400).json({ success: false, error: "Url Expired or not found" });
             }
-            return res.status(200).json({ success: true, ...stats });
+            return res.status(200).json({ success: true, stats: stats });
         }
         catch (error) {
             next(error);
